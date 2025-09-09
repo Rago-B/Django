@@ -1,0 +1,41 @@
+# js
+
+    <script>
+        function updateProfile() {
+            const csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+
+            fetch("/updateprofileapi/", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrftoken
+                },
+                body: JSON.stringify({ username, email })
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("message").innerText = data.message || "Profile updated";
+            })
+            .catch(err => console.error(err));
+        }
+    </script>
+</body>
+</html>
+  # view
+
+class Updateprofile (APIView):
+    def post(self,request):
+        user=request.user
+        username=request.data.get("username")
+        email=request.data.get("email")
+        
+        user.username=username
+        user.email=email
+        user.save()
+        return Response ("done") 
+# urls 
+    path("updateprofileapi/",Updateprofile.as_view(),name="updateprofileapi"),
+
+        
