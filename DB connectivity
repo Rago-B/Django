@@ -1,0 +1,12 @@
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': BASE_DIR / 'mysql',
+        'NAME':'Job_Tracker',
+        'USER':'api_db',
+        'PASSWORD':'root@123',
+        'HOST':'localhost',
+        'PORT':'3306',
+    }
+}
+
